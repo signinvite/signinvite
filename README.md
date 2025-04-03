@@ -1,9 +1,9 @@
-## 📄 SignDocs@leader
+## 📄 SignInvite
 
 ### 📝 Update Log
 
-#### ✏ Edited by: @leader
-#### 📅 Date: 24-04-2025
+#### ✏ Edited by: SignInvite
+#### 📅 Date: 03-04-2025
 
 **Changes made:**
 - 🔹 Updated `OPEN page layout(remix/app/routes/_unauthenticated+/_layout) file, navbar files`
