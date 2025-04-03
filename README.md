@@ -1,8 +1,9 @@
-## 📄 SignInvite
+## 📄 SignInvite RAMSOL
+<img src="https://github.com/signinvite/signinvite/blob/main/assets/signinvitelogo.png?raw=true" alt="Documenso Logo">
 
 ### 📝 Update Log
 
-#### ✏ Edited by: SignInvite
+#### ✏ Edited by: SignInvite RAMSOL
 #### 📅 Date: 03-04-2025
 
 **Changes made:**
