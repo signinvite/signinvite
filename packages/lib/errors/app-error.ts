@@ -117,9 +117,8 @@ export class AppError extends Error {
       return parsedJsonError || fallbackError;
     }
     let code: unknown, message: unknown, userMessage: unknown, statusCode: unknown;
-
     if (!error.success) {
-      error = error.error[0];
+      if (error.error) error = error.error[0];
     }
 
     // Handle completely unknown errors.

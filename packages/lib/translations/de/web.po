@@ -111,7 +111,9 @@ msgid "{0, plural, zero {Select values} other {# selected...}}"
 msgstr "{0, plural, zero {Werte auswählen} other {# ausgewählt...}}"
 
 #. placeholder {0}: _(FRIENDLY_FIELD_TYPE[fieldType as FieldType])
+#. placeholder {0}: error.message
 #: apps/remix/app/components/general/document-signing/document-signing-auto-sign.tsx
+#: apps/remix/app/components/forms/signin.tsx
 msgid "{0}"
 msgstr "{0}"
 
@@ -422,6 +424,10 @@ msgstr "<0>Klicken Sie hier, um hochzuladen</0> oder ziehen Sie die Datei per Dr
 #: packages/ui/primitives/template-flow/add-template-settings.tsx
 msgid "<0>Email</0> - The recipient will be emailed the document to sign, approve, etc."
 msgstr "<0>E-Mail</0> - Der Empfänger erhält das Dokument zur Unterschrift, Genehmigung usw."
+
+#: apps/remix/app/routes/_unauthenticated+/unverified-account.tsx
+msgid "<0>If you don't find the confirmation link in your inbox, you can request a new one below.</0>"
+msgstr ""
 
 #: packages/ui/components/recipient/recipient-action-auth-select.tsx
 msgid "<0>Inherit authentication method</0> - Use the global action signing authentication method configured in the \"General Settings\" step"
@@ -1671,10 +1677,13 @@ msgstr "Bestätigen Sie durch Eingabe: <0>{deleteMessage}</0>"
 msgid "Confirm Deletion"
 msgstr "Bestätigung der Löschung"
 
-#: apps/remix/app/routes/_unauthenticated+/unverified-account.tsx
 #: packages/email/template-components/template-confirmation-email.tsx
 msgid "Confirm email"
 msgstr "E-Mail bestätigen"
+
+#: apps/remix/app/routes/_unauthenticated+/unverified-account.tsx
+msgid "Confirm email Sent"
+msgstr ""
 
 #: apps/remix/app/components/forms/send-confirmation-email.tsx
 msgid "Confirmation email sent"
@@ -3053,10 +3062,6 @@ msgstr "Wenn sie diese Anfrage akzeptieren, wird das Team auf ihr Konto übertra
 #: apps/remix/app/components/dialogs/passkey-create-dialog.tsx
 msgid "If you do not want to use the authenticator prompted, you can close it, which will then display the next available authenticator."
 msgstr "Wenn Sie die angegebene Authentifizierung nicht verwenden möchten, können Sie sie schließen, wodurch die nächste verfügbare Authentifizierung angezeigt wird."
-
-#: apps/remix/app/routes/_unauthenticated+/unverified-account.tsx
-msgid "If you don't find the confirmation link in your inbox, you can request a new one below."
-msgstr "Wenn Sie den Bestätigungslink nicht in Ihrem Posteingang finden, können Sie unten einen neuen anfordern."
 
 #: apps/remix/app/components/forms/2fa/enable-authenticator-app-dialog.tsx
 msgid "If your authenticator app does not support QR codes, you can use the following code instead:"
