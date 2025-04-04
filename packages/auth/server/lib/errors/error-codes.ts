@@ -10,7 +10,7 @@ export const AuthenticationErrorCode = {
   UnverifiedEmail: 'UNVERIFIED_EMAIL',
   NotFound: 'NOT_FOUND',
   NotSetup: 'NOT_SETUP',
-
+  custom: "custom",
   // InternalSeverError: 'INTERNAL_SEVER_ERROR',
   // TwoFactorAlreadyEnabled: 'TWO_FACTOR_ALREADY_ENABLED',
   // TwoFactorSetupRequired: 'TWO_FACTOR_SETUP_REQUIRED',

@@ -1,12 +1,17 @@
 import { z } from 'zod';
+import { ALLOWED_EMAIL_DOMAINS } from '../config';
 
 export const ZCurrentPasswordSchema = z
   .string()
   .min(6, { message: 'Must be at least 6 characters in length' })
   .max(72);
 
+const allowedDomains = ALLOWED_EMAIL_DOMAINS;
+
 export const ZSignInSchema = z.object({
-  email: z.string().email().min(1),
+  email: z.string().email().min(1).refine(
+    (val) => allowedDomains.some((domain) => val.toLowerCase().includes(domain)),
+    { message: "Email Must be belong to this Organization!" }),
   password: ZCurrentPasswordSchema,
   totpCode: z.string().trim().optional(),
   backupCode: z.string().trim().optional(),
@@ -34,7 +39,9 @@ export const ZPasswordSchema = z
 
 export const ZSignUpSchema = z.object({
   name: z.string().min(1),
-  email: z.string().email(),
+  email: z.string().email().refine(
+    (val) => allowedDomains.some((domain) => val.toLowerCase().includes(domain)),
+    { message: "Email Must be belong to this Organization!" }),
   password: ZPasswordSchema,
   signature: z.string().nullish(),
   url: z

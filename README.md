@@ -4,9 +4,11 @@
 ### 📝 Update Log
 
 #### ✏ Edited by: SignInvite RAMSOL
-#### 📅 Date: 03-04-2025
+#### 📅 Date: 04-04-2025
 
 **Changes made:**
+- 🔹 Updated the Blocking of open email (Allowing only RAMSOL ORG Email to Register and Login), to    Maintain organizational Environment , changes in `packages/auth/server/types/email-password.ts` and
+`packages/auth/server/config.ts`.
 - 🔹 Updated `OPEN page layout(remix/app/routes/_unauthenticated+/_layout) file, navbar files`
 - 🔹 Removed Analatics `posthog-js, plausible-tracker`
 - 🔹 General code cleanup & optimization

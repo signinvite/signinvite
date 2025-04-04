@@ -16,6 +16,8 @@ export type OAuthClientOptions = {
   bypassEmailVerification?: boolean;
 };
 
+export const ALLOWED_EMAIL_DOMAINS = env("NEXT_PRIVATE_ALLOWED_EMAIL_DOMAINS")?.split(",") ?? [];
+
 export const GoogleAuthOptions: OAuthClientOptions = {
   id: 'google',
   scope: ['openid', 'email', 'profile'],

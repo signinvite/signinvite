@@ -47,7 +47,6 @@ const CommonErrorMessages: Record<string, MessageDescriptor> = {
 
 const handleFallbackErrorMessages = (code: string) => {
   const message = CommonErrorMessages[code];
-console.log(code)
   if (!message) {
     return msg`An unknown error occurred`;
   }
@@ -214,8 +213,8 @@ export const SignInForm = ({
         redirectPath,
       });
     } catch (err) {
-      console.log(err);
 
+      console.log(err);
       const error = AppError.parseError(err);
 
       if (error.code === 'TWO_FACTOR_MISSING_CREDENTIALS') {
@@ -244,6 +243,9 @@ export const SignInForm = ({
         .with(
           AuthenticationErrorCode.InvalidTwoFactorCode,
           () => msg`The two-factor authentication code provided is incorrect`,
+        ).with(
+          AuthenticationErrorCode.custom,
+          () => msg`${error.message}`
         )
         .otherwise(() => handleFallbackErrorMessages(error.code));
 
