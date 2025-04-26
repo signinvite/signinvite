@@ -39,6 +39,7 @@ import {
   ZVerifyEmailSchema,
 } from '../types/email-password';
 
+
 export const emailPasswordRoute = new Hono<HonoAuthContext>()
   /**
    * Authorize endpoint.

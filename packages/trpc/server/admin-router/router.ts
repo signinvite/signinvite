@@ -7,6 +7,7 @@ import { sealDocument } from '@documenso/lib/server-only/document/seal-document'
 import { sendDeleteEmail } from '@documenso/lib/server-only/document/send-delete-email';
 import { superDeleteDocument } from '@documenso/lib/server-only/document/super-delete-document';
 import { upsertSiteSetting } from '@documenso/lib/server-only/site-settings/upsert-site-setting';
+import { AddWhitelistEmail, ViewAllWhitelistedEmail, DeleteWhitelistedMail } from '@documenso/lib/server-only/user/whitelist-email';
 import { deleteUser } from '@documenso/lib/server-only/user/delete-user';
 import { disableUser } from '@documenso/lib/server-only/user/disable-user';
 import { enableUser } from '@documenso/lib/server-only/user/enable-user';
@@ -15,6 +16,7 @@ import { isDocumentCompleted } from '@documenso/lib/utils/document';
 
 import { adminProcedure, router } from '../trpc';
 import {
+  ZAdminAddWhitelistEmailSchema,
   ZAdminDeleteDocumentMutationSchema,
   ZAdminDeleteUserMutationSchema,
   ZAdminDisableUserMutationSchema,
@@ -24,6 +26,7 @@ import {
   ZAdminUpdateProfileMutationSchema,
   ZAdminUpdateRecipientMutationSchema,
   ZAdminUpdateSiteSettingMutationSchema,
+  ZAdminViewAllWhitelistEmailSchema,
 } from './schema';
 
 export const adminRouter = router({
@@ -118,5 +121,23 @@ export const adminRouter = router({
         id,
         requestMetadata: ctx.metadata.requestMetadata,
       });
+    }),
+
+  addWhitelistEmail: adminProcedure.input(ZAdminAddWhitelistEmailSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { email } = input;
+      return await AddWhitelistEmail({ email });
+    }),
+
+  viewAllWhitelistedEmail: adminProcedure.input(ZAdminViewAllWhitelistEmailSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { page, perPage, search } = input
+      return await ViewAllWhitelistedEmail({ page, perPage, search });
+    }),
+
+  deleteWhitelistedMail: adminProcedure.input(ZAdminAddWhitelistEmailSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { email } = input;
+      return await DeleteWhitelistedMail({ email });
     }),
 });

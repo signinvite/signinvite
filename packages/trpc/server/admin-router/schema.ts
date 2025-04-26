@@ -65,3 +65,18 @@ export const ZAdminDeleteDocumentMutationSchema = z.object({
 });
 
 export type TAdminDeleteDocomentMutationSchema = z.infer<typeof ZAdminDeleteDocumentMutationSchema>;
+
+export const ZAdminAddWhitelistEmailSchema = z.object({
+  email: z.string().email()
+});
+
+export type TAdminAddWhitelistEmailSchema = z.infer<typeof ZAdminAddWhitelistEmailSchema>;
+
+export const ZAdminViewAllWhitelistEmailSchema = z.object({
+  page: z.number().optional(),
+  perPage: z.number().optional(),
+  search: z.string().optional()
+})
+
+export type TAdminViewAllWhitelistEmailSchema = z.infer<typeof ZAdminViewAllWhitelistEmailSchema>;
+
