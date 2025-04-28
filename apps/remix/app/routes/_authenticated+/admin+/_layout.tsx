@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { BarChart3, FileStack, Settings, Trophy, Users, Wallet2 } from 'lucide-react';
+import { BarChart3, FileStack, Mails, Settings, Trophy, Users, Wallet2 } from 'lucide-react';
 import { Link, Outlet, redirect, useLocation } from 'react-router';
 
 import { getSession } from '@documenso/auth/server/lib/utils/get-session';
@@ -109,6 +109,13 @@ export default function AdminLayout() {
             <Link to="/admin/site-settings">
               <Settings className="mr-2 h-5 w-5" />
               <Trans>Site Settings</Trans>
+            </Link>
+          </Button>
+
+          <Button variant="ghost" className={cn('justify-start md:w-full')} asChild>
+            <Link to="/admin/mails">
+              <Mails className="mr-2 h-5 w-5" />
+              <Trans>Mails</Trans>
             </Link>
           </Button>
         </div>

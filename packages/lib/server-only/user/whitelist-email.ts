@@ -1,7 +1,13 @@
-import { promises as fs } from "fs";
+import { promises as fs } from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, 'whitelistedEmails.json');
+
+// const filePath = path.join('packages/lib/server-only/user/whitelist-email.ts');
+console.log(filePath, '----234-3242');
 
 export const AddWhitelistEmail = async ({ email }: { email: string }) => {
   try {
@@ -30,23 +36,26 @@ export const AddWhitelistEmail = async ({ email }: { email: string }) => {
       await fs.writeFile(filePath, JSON.stringify([newData], null, 2), 'utf-8');
     }
 
-    console.log("✅ File written/appended successfully.");
-    return { message: "Added New Whitelisted Mail", status: true };
+    console.log('✅ File written/appended successfully.');
+    return { message: 'Added New Whitelisted Mail', status: true };
   } catch (error) {
-    console.error("❌ Error handling file:", error);
-    return { message: "Error Happened While Adding New Whitelisted Mail!!!", status: false };
+    console.error('❌ Error handling file:', error);
+    return { message: 'Error Happened While Adding New Whitelisted Mail!!!', status: false };
   }
 };
 
 type PaginationParams = {
-  page?: number;         // Optional page number
-  perPage?: number;      // Optional items per page
-  search?: string;       // Optional search text
+  page?: number; // Optional page number
+  perPage?: number; // Optional items per page
+  search?: string; // Optional search text
 };
 
-export const ViewAllWhitelistedEmail = async ({ page = 1, perPage = 10, search = "" }: PaginationParams = {}) => {
+export const ViewAllWhitelistedEmail = async ({
+  page = 1,
+  perPage = 10,
+  search = '',
+}: PaginationParams = {}) => {
   try {
-
     try {
       await fs.access(filePath);
     } catch (err) {
@@ -61,10 +70,10 @@ export const ViewAllWhitelistedEmail = async ({ page = 1, perPage = 10, search =
     }
 
     // 🧹 Search
-    if (search.trim() !== "") {
+    if (search.trim() !== '') {
       const lowerSearch = search.toLowerCase();
       json = json.filter((entry: { email: string }) =>
-        entry.email.toLowerCase().includes(lowerSearch)
+        entry.email.toLowerCase().includes(lowerSearch),
       );
     }
 
@@ -74,7 +83,7 @@ export const ViewAllWhitelistedEmail = async ({ page = 1, perPage = 10, search =
     // 🎯 Pagination
     const paginatedData = json.slice((page - 1) * perPage, page * perPage);
 
-    console.log("✅ Retrieved whitelisted emails with pagination and search.");
+    // console.log('✅ Retrieved whitelisted emails with pagination and search.');
     return {
       emails: paginatedData,
       totalItems,
@@ -84,8 +93,8 @@ export const ViewAllWhitelistedEmail = async ({ page = 1, perPage = 10, search =
       status: true,
     };
   } catch (error) {
-    console.error("❌ Error reading whitelist file:", error);
-    return { message: "Error happened while reading Whitelisted Mails!!!", status: false };
+    console.error('❌ Error reading whitelist file:', error);
+    return { message: 'Error happened while reading Whitelisted Mails!!!', status: false };
   }
 };
 
@@ -103,9 +112,9 @@ export const DeleteWhitelistedMail = async ({ email }: { email: string }) => {
     await fs.writeFile(filePath, JSON.stringify(updatedList, null, 2), 'utf-8');
 
     console.log(`✅ Email "${email}" deleted from whitelist.`);
-    return { message: "Deleted Successfully!", status: true };
+    return { message: 'Deleted Successfully!', status: true };
   } catch (error) {
-    console.error("❌ Error deleting whitelist email:", error);
-    return { message: "Error Happened While Deleting Whitelisted Mail!!!", status: false };
+    console.error('❌ Error deleting whitelist email:', error);
+    return { message: 'Error Happened While Deleting Whitelisted Mail!!!', status: false };
   }
 };
