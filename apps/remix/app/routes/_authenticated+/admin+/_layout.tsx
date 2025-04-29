@@ -102,7 +102,7 @@ export default function AdminLayout() {
             variant="ghost"
             className={cn(
               'justify-start md:w-full',
-              pathname?.startsWith('/admin/banner') && 'bg-secondary',
+              pathname?.startsWith('/admin/site-settings') && 'bg-secondary',
             )}
             asChild
           >
@@ -112,10 +112,17 @@ export default function AdminLayout() {
             </Link>
           </Button>
 
-          <Button variant="ghost" className={cn('justify-start md:w-full')} asChild>
+          <Button
+            variant="ghost"
+            className={cn(
+              'justify-start md:w-full',
+              pathname?.startsWith('/admin/mails') && 'bg-secondary',
+            )}
+            asChild
+          >
             <Link to="/admin/mails">
               <Mails className="mr-2 h-5 w-5" />
-              <Trans>Mails</Trans>
+              <Trans>Whitelisted Mails</Trans>
             </Link>
           </Button>
         </div>

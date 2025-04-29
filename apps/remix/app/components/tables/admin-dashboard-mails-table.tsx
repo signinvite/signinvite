@@ -117,7 +117,7 @@ export const AdminDashboardMailsTable = ({
     <div className="relative">
       <Input
         className="my-6 flex flex-row gap-4"
-        type="text"
+        type="email"
         placeholder={_(msg`Search by email`)}
         value={searchString}
         onChange={handleChange}

@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Trans } from '@lingui/react/macro';
 import { useSearchParams } from 'react-router';
 
-import { getPricesByPlan } from '@documenso/ee/server-only/stripe/get-prices-by-plan';
 import { useDebouncedValue } from '@documenso/lib/client-only/hooks/use-debounced-value';
-import { STRIPE_PLAN_TYPE } from '@documenso/lib/constants/billing';
 import { findUsers } from '@documenso/lib/server-only/user/get-all-users';
 import { trpc } from '@documenso/trpc/react';
 
@@ -21,17 +19,17 @@ export async function loader({ request }: Route.LoaderArgs) {
   const perPage = Number(url.searchParams.get('perPage')) || 10;
   const search = url.searchParams.get('search') || '';
 
-  const [{ users, totalPages }, individualPrices] = await Promise.all([
+  const [{ users, totalPages }] = await Promise.all([
     findUsers({ username: search, email: search, page, perPage }),
-    getPricesByPlan([STRIPE_PLAN_TYPE.REGULAR, STRIPE_PLAN_TYPE.COMMUNITY]).catch(() => []),
+    // getPricesByPlan([STRIPE_PLAN_TYPE.REGULAR, STRIPE_PLAN_TYPE.COMMUNITY]).catch(() => []),
   ]);
 
-  const individualPriceIds = individualPrices.map((price) => price.id);
+  // const individualPriceIds = individualPrices.map((price) => price.id);
 
   return {
     users,
     totalPages,
-    individualPriceIds,
+    // individualPriceIds,
     page,
     perPage,
   };
@@ -45,32 +43,35 @@ export default function AdminWhitelistPage() {
 
   const page = searchParams?.get?.('page') ? Number(searchParams.get('page')) : undefined;
   const perPage = searchParams?.get?.('perPage') ? Number(searchParams.get('perPage')) : undefined;
+  const search = searchParams?.get?.('search') ? String(searchParams.get('search')) : undefined;
+
+  console.log(search, '===search===');
 
   const { data: viewAllWhitelistedEmail, isPending: isFindDocumentsLoading } =
     trpc.admin.viewAllWhitelistedEmail.useQuery({
-      search: '',
+      search: search !== undefined ? String(search) : undefined,
       page: page || 1,
       perPage: perPage || 20,
     });
 
   const results = viewAllWhitelistedEmail ?? {
     emails: [],
-    perPage: 20,
+    perPage: 10,
     currentPage: 1,
     totalPages: 1,
   };
 
   // const createUser = trpc.admin.viewAllWhitelistedEmail.useMutation();
 
-  useEffect(() => {}, []);
+  // useEffect(() => {
 
-  console.log(results, 'trpc');
+  // }, []);
 
   return (
     <div>
       <div className="flex flex-row items-center justify-between">
         <h2 className="text-4xl font-semibold">
-          <Trans>Mails</Trans>
+          <Trans>Whitelisted Mails</Trans>
         </h2>
 
         <div>

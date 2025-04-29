@@ -83,7 +83,7 @@ export const ViewAllWhitelistedEmail = async ({
     // 🎯 Pagination
     const paginatedData = json.slice((page - 1) * perPage, page * perPage);
 
-    // console.log('✅ Retrieved whitelisted emails with pagination and search.');
+    console.log('✅ Retrieved whitelisted emails with pagination and search.');
     return {
       emails: paginatedData,
       totalItems,
