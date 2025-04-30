@@ -17,10 +17,15 @@ export const AddWhitelistEmail = async ({ email }: { email: string }) => {
 
     if (fileExists) {
       const existing = await fs.readFile(filePath, 'utf-8');
-      let json = JSON.parse(existing);
+      let json: { email: string, timestamp: Date }[] = JSON.parse(existing);
+      const isAlreadyExists = json.map((d) => d.email).some((e) => e == newData.email);
 
       if (Array.isArray(json)) {
-        json.push(newData);
+        if (!isAlreadyExists) {
+          json.push(newData);
+        } else {
+          return { message: "Already Whitelisted Mail", status: true };
+        }
       } else {
         json = [json, newData];
       }

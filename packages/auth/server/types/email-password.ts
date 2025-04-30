@@ -1,16 +1,40 @@
 import { z } from 'zod';
 import { ALLOWED_EMAIL_DOMAINS } from '../config';
+import { promises as fs } from "fs";
+import path from 'path';
 
 export const ZCurrentPasswordSchema = z
   .string()
   .min(6, { message: 'Must be at least 6 characters in length' })
   .max(72);
 
-const allowedDomains = ALLOWED_EMAIL_DOMAINS;
+const filePath = path.join(__dirname, 'whitelistedEmails.json');
+const getAllowedEmails = async () => {
+  try {
+    await fs.access(filePath);
+  } catch (err) {
+    await fs.writeFile(filePath, JSON.stringify([], null, 2), 'utf-8');
+  }
+
+  const data = await fs.readFile(filePath, 'utf-8');
+  let json: { email: string, timestamp: number }[] | null | undefined = JSON.parse(data);
+
+  if (!json) {
+    json = [];
+  }
+  if ((!Array.isArray(json))) {
+    json = [json];
+  }
+
+  let allowed_emails = json.map((d) => d.email);
+  return allowed_emails;
+}
+
+const allowedDomains = getAllowedEmails();
 
 export const ZSignInSchema = z.object({
   email: z.string().email().min(1).refine(
-    (val) => allowedDomains.some((domain) => val.toLowerCase().includes(domain)),
+    async (val) => (await allowedDomains).some((domain) => val.toLowerCase().includes(domain)),
     { message: "Email Must be belong to this Organization!" }),
   password: ZCurrentPasswordSchema,
   totpCode: z.string().trim().optional(),
@@ -40,7 +64,7 @@ export const ZPasswordSchema = z
 export const ZSignUpSchema = z.object({
   name: z.string().min(1),
   email: z.string().email().refine(
-    (val) => allowedDomains.some((domain) => val.toLowerCase().includes(domain)),
+    async (val) => (await allowedDomains).some((domain) => val.toLowerCase().includes(domain)),
     { message: "Email Must be belong to this Organization!" }),
   password: ZPasswordSchema,
   signature: z.string().nullish(),

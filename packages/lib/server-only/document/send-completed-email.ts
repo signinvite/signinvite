@@ -66,9 +66,8 @@ export const sendCompletedEmail = async ({ documentId, requestMetadata }: SendDo
   )}/${document.id}`;
 
   if (document.team?.url) {
-    documentOwnerDownloadLink = `${NEXT_PUBLIC_WEBAPP_URL()}/t/${document.team.url}/documents/${
-      document.id
-    }`;
+    documentOwnerDownloadLink = `${NEXT_PUBLIC_WEBAPP_URL()}/t/${document.team.url}/documents/${document.id
+      }`;
   }
 
   const i18n = await getI18nInstance(document.documentMeta?.language);
