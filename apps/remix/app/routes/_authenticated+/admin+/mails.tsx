@@ -4,6 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { useSearchParams } from 'react-router';
 
 import { useDebouncedValue } from '@documenso/lib/client-only/hooks/use-debounced-value';
+import { useSession } from '@documenso/lib/client-only/providers/session';
 import { findUsers } from '@documenso/lib/server-only/user/get-all-users';
 import { trpc } from '@documenso/trpc/react';
 
@@ -38,6 +39,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function AdminWhitelistPage() {
   const [searchParams] = useSearchParams();
 
+  const { user, refreshSession } = useSession();
+
   const [term, setTerm] = useState(() => searchParams?.get?.('term') ?? '');
   const debouncedTerm = useDebouncedValue(term, 500);
 
@@ -61,6 +64,11 @@ export default function AdminWhitelistPage() {
     totalPages: 1,
   };
 
+  const fiteredEmails = results.emails.filter(
+    (item: { email: string }) => item?.email !== user.email,
+  );
+  console.log(fiteredEmails, user.email, '====== Result ======');
+
   // const createUser = trpc.admin.viewAllWhitelistedEmail.useMutation();
 
   // useEffect(() => {
@@ -80,7 +88,7 @@ export default function AdminWhitelistPage() {
       </div>
 
       <AdminDashboardMailsTable
-        emails={results.emails}
+        emails={fiteredEmails}
         totalPages={results?.totalPages ?? 1}
         page={page ?? 1}
         perPage={perPage ?? 10}

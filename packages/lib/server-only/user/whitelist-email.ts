@@ -1,10 +1,8 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const filePath = path.join(__dirname, 'whitelistedEmails.json');
+const filePath = path.resolve(process.cwd(), '../../whitelistedEmails.json');
+console.log(filePath);
 
 // const filePath = path.join('packages/lib/server-only/user/whitelist-email.ts');
 console.log(filePath, '----234-3242');
@@ -23,14 +21,14 @@ export const AddWhitelistEmail = async ({ email }: { email: string }) => {
 
     if (fileExists) {
       const existing = await fs.readFile(filePath, 'utf-8');
-      let json: { email: string, timestamp: Date }[] = JSON.parse(existing);
+      let json: { email: string; timestamp: Date }[] = JSON.parse(existing);
       const isAlreadyExists = json.map((d) => d.email).some((e) => e == newData.email);
 
       if (Array.isArray(json)) {
         if (!isAlreadyExists) {
           json.push(newData);
         } else {
-          return { message: "Already Whitelisted Mail", status: true };
+          return { message: 'Already Whitelisted Mail', status: true };
         }
       } else {
         json = [json, newData];

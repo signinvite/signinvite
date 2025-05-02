@@ -24,7 +24,7 @@ export default function UnverifiedAccount() {
 
           <p className="text-muted-foreground mt-4">
             <Trans>
-              <div className="text-xl font-extrabold text-black">
+              <div className="font-extrabolds text-xl dark:text-white">
                 If you don't find the confirmation link in your inbox, you can request a new one
                 below.
               </div>
