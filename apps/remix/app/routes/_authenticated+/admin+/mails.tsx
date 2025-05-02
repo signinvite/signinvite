@@ -48,7 +48,7 @@ export default function AdminWhitelistPage() {
   const perPage = searchParams?.get?.('perPage') ? Number(searchParams.get('perPage')) : undefined;
   const search = searchParams?.get?.('search') ? String(searchParams.get('search')) : undefined;
 
-  console.log(search, '===search===');
+  // console.log(search, '===search===');
 
   const { data: viewAllWhitelistedEmail, isPending: isFindDocumentsLoading } =
     trpc.admin.viewAllWhitelistedEmail.useQuery({
@@ -67,7 +67,7 @@ export default function AdminWhitelistPage() {
   const fiteredEmails = results.emails.filter(
     (item: { email: string }) => item?.email !== user.email,
   );
-  console.log(fiteredEmails, user.email, '====== Result ======');
+  // console.log(fiteredEmails, user.email, '====== Result ======');
 
   // const createUser = trpc.admin.viewAllWhitelistedEmail.useMutation();
 
