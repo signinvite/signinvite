@@ -2,10 +2,10 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const filePath = path.resolve(process.cwd(), '../../whitelistedEmails.json');
-console.log(filePath);
+// console.log(filePath);
 
 // const filePath = path.join('packages/lib/server-only/user/whitelist-email.ts');
-console.log(filePath, '----234-3242');
+// console.log(filePath, '----234-3242');
 
 export const AddWhitelistEmail = async ({ email }: { email: string }) => {
   try {
@@ -39,10 +39,10 @@ export const AddWhitelistEmail = async ({ email }: { email: string }) => {
       await fs.writeFile(filePath, JSON.stringify([newData], null, 2), 'utf-8');
     }
 
-    console.log('✅ File written/appended successfully.');
+    // console.log('✅ File written/appended successfully.');
     return { message: 'Added New Whitelisted Mail', status: true };
   } catch (error) {
-    console.error('❌ Error handling file:', error);
+    // console.error('❌ Error handling file:', error);
     return { message: 'Error Happened While Adding New Whitelisted Mail!!!', status: false };
   }
 };
@@ -86,7 +86,7 @@ export const ViewAllWhitelistedEmail = async ({
     // 🎯 Pagination
     const paginatedData = json.slice((page - 1) * perPage, page * perPage);
 
-    console.log('✅ Retrieved whitelisted emails with pagination and search.');
+    // console.log('✅ Retrieved whitelisted emails with pagination and search.');
     return {
       emails: paginatedData,
       totalItems,
@@ -96,7 +96,7 @@ export const ViewAllWhitelistedEmail = async ({
       status: true,
     };
   } catch (error) {
-    console.error('❌ Error reading whitelist file:', error);
+    // console.error('❌ Error reading whitelist file:', error);
     return { message: 'Error happened while reading Whitelisted Mails!!!', status: false };
   }
 };
@@ -114,10 +114,10 @@ export const DeleteWhitelistedMail = async ({ email }: { email: string }) => {
 
     await fs.writeFile(filePath, JSON.stringify(updatedList, null, 2), 'utf-8');
 
-    console.log(`✅ Email "${email}" deleted from whitelist.`);
+    // console.log(`✅ Email "${email}" deleted from whitelist.`);
     return { message: 'Deleted Successfully!', status: true };
   } catch (error) {
-    console.error('❌ Error deleting whitelist email:', error);
+    // console.error('❌ Error deleting whitelist email:', error);
     return { message: 'Error Happened While Deleting Whitelisted Mail!!!', status: false };
   }
 };

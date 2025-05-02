@@ -9,7 +9,7 @@ export const ZCurrentPasswordSchema = z
 
 const getAllowedEmails = async () => {
   const filePath = path.resolve(process.cwd(), '../../whitelistedEmails.json');
-  console.log(filePath, '====file====');
+  // console.log(filePath, '====file====');
   try {
     await fs.access(filePath);
   } catch (err) {
@@ -27,7 +27,7 @@ const getAllowedEmails = async () => {
   }
 
   const allowed_emails = json.map((d) => d.email);
-  console.log(allowed_emails, '=== allowed_emails ===');
+  // console.log(allowed_emails, '=== allowed_emails ===');
   return allowed_emails;
 };
 
